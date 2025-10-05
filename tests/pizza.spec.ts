@@ -1,6 +1,6 @@
 import { Page } from '@playwright/test';
 // import { test, expect, Page } from '@playwright-test-coverage';
-// import { test, expect } from '@playwright/test' <- Replace this with the line below
+// import { test, expect } from '@playwright/test'
 import { test, expect } from 'playwright-test-coverage';
 import { User, Role } from '../src/service/pizzaService';
 
@@ -130,3 +130,33 @@ test('purchase with login', async ({ page }) => {
   // Check balance
   await expect(page.getByText('0.008')).toBeVisible();
 });
+
+test('register', async ({ page }) => {
+  await basicInit(page);
+  
+  // Go to register page
+  await page.getByRole('link', { name: 'Register' }).click();
+  await page.getByRole('textbox', { name: 'Full name' }).fill('guest');
+  await page.getByRole('textbox', { name: 'Email address' }).fill('guest@jwt.com');
+  await page.getByRole('textbox', { name: 'Password' }).fill('guestpassword');
+  await page.getByRole('button', { name: 'Register' }).click();
+});
+
+test('about page', async ({ page }) => {
+  await basicInit(page);
+  await page.getByRole('link', { name: 'About' }).click();
+  await expect(page.getByRole('heading', { name: 'The Secret Sauce' })).toBeVisible();
+});
+
+test('history page', async ({ page }) => {
+  await basicInit(page);
+  await page.getByRole('link', { name: 'History' }).click();
+  await expect(page.getByRole('heading', { name: 'Mama Rucci, my my' })).toBeVisible();
+});
+test('not found', async ({ page }) => {
+  await basicInit(page);
+    await page.goto('http://localhost:5173/asdasd');
+  // await page.getByRole('link', { name: 'History' }).click();
+  await expect(page.getByRole('heading', { name: 'Oops' })).toBeVisible();
+});
+
