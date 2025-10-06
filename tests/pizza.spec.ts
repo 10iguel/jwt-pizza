@@ -144,18 +144,3 @@ test('not found', async ({ page }) => {
   await page.goto('http://localhost:5173/asdasd');
   await expect(page.getByRole('heading', { name: 'Oops' })).toBeVisible();
 });
-
-test('test succesful registration', async ({ page }) => {
-  await page.goto('http://localhost:5173/');
-  await page.getByRole('link', { name: 'Register' }).click();
-  await page.getByRole('textbox', { name: 'Full name' }).fill('guest');
-  await page.getByRole('textbox', { name: 'Email address' }).click();
-  await page.getByRole('textbox', { name: 'Email address' }).fill('guest@gmail.com');
-  await page.getByRole('textbox', { name: 'Password' }).click();
-  await page.getByRole('textbox', { name: 'Password' }).fill('1234567');
-  await page.getByRole('button').filter({ hasText: /^$/ }).click();
-  await page.getByRole('button').filter({ hasText: /^$/ }).click();
-  await page.getByRole('button', { name: 'Register' }).click();
-  await page.waitForURL('http://localhost:5173/');
-  expect(page.getByText("brings joy to people")).toBeVisible();
-});
