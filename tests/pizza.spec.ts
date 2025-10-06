@@ -95,7 +95,6 @@ test('login', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Email address' }).fill('d@jwt.com');
   await page.getByRole('textbox', { name: 'Password' }).fill('a');
   await page.getByRole('button', { name: 'Login' }).click();
-
   await expect(page.getByRole('link', { name: 'KC' })).toBeVisible();
 });
 
@@ -131,16 +130,20 @@ test('purchase with login', async ({ page }) => {
   await expect(page.getByText('0.008')).toBeVisible();
 });
 
-test('register', async ({ page }) => {
-  await basicInit(page);
-  
-  // Go to register page
-  await page.getByRole('link', { name: 'Register' }).click();
-  await page.getByRole('textbox', { name: 'Full name' }).fill('guest');
-  await page.getByRole('textbox', { name: 'Email address' }).fill('guest@jwt.com');
-  await page.getByRole('textbox', { name: 'Password' }).fill('guestpassword');
-  await page.getByRole('button', { name: 'Register' }).click();
-});
+// test('register failing', async ({ page }) => {
+//   await basicInit(page);
+//   // Go to register page
+//   await page.getByRole('link', { name: 'Register' }).click();
+//   await page.getByRole('textbox', { name: 'Full name' }).fill('guest');
+//     await page.getByRole('textbox', { name: 'Email address' }).click();
+//   await page.getByRole('textbox', { name: 'Email address' }).fill('guest@jwt.com');
+//     await page.getByRole('textbox', { name: 'Password' }).click();
+//   await page.getByRole('textbox', { name: 'Password' }).fill('guestpassword');
+//   await page.getByRole('button').filter({ hasText: /^$/ }).click();
+//   await page.getByRole('button').filter({ hasText: /^$/ }).click();
+//   await page.getByRole('button', { name: 'Register' }).click();
+//   await expect(page.getByText('{"code":500,"message":"Failed')).toBeVisible();
+// });
 
 test('about page', async ({ page }) => {
   await basicInit(page);
@@ -155,8 +158,44 @@ test('history page', async ({ page }) => {
 });
 test('not found', async ({ page }) => {
   await basicInit(page);
-    await page.goto('http://localhost:5173/asdasd');
+  await page.goto('http://localhost:5173/asdasd');
   // await page.getByRole('link', { name: 'History' }).click();
   await expect(page.getByRole('heading', { name: 'Oops' })).toBeVisible();
 });
 
+test('test succesful registration', async ({ page }) => {
+  await page.goto('http://localhost:5173/');
+  await page.getByRole('link', { name: 'Register' }).click();
+  await page.getByRole('textbox', { name: 'Full name' }).fill('guest');
+  await page.getByRole('textbox', { name: 'Email address' }).click();
+  await page.getByRole('textbox', { name: 'Email address' }).fill('guest@gmail.com');
+  await page.getByRole('textbox', { name: 'Password' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('1234567');
+  await page.getByRole('button').filter({ hasText: /^$/ }).click();
+  await page.getByRole('button').filter({ hasText: /^$/ }).click();
+  await page.getByRole('button', { name: 'Register' }).click();
+  await page.waitForURL('http://localhost:5173/');
+  expect(page.getByText("brings joy to people")).toBeVisible();
+});
+
+
+// test('admin dashboard', async ({ page }) => {
+//   await basicInit(page);
+//   await page.getByRole('link', { name: 'Login' }).click();
+//   await page.getByRole('textbox', { name: 'Email address' }).fill('a@jwt.com');
+//   await page.getByRole('textbox', { name: 'Password' }).fill('admin');
+//   await page.getByRole('button', { name: 'Login' }).click();
+//   // await expect(page.getByRole('link', { name: 'Admin User' })).toBeVisible();
+//   await page.goto('/admin-dashboard');
+//   await expect(page.getByRole('heading', { name: "Mama Ricci's kitchen" })).toBeVisible();
+//   await expect(page.locator('thead tr th:nth-child(1)')).toContainText('Franchise');
+//   await expect(page.locator('thead tr th:nth-child(2)')).toContainText('Franchisee');
+//   await expect(page.locator('thead tr th:nth-child(3)')).toContainText('Store');
+//   await expect(page.locator('thead tr th:nth-child(4)')).toContainText('Revenue');
+//   await expect(page.locator('thead tr th:nth-child(5)')).toContainText('Action');
+//   await expect(page.getByText('LotaPizza')).toBeVisible();
+//   await expect(page.getByText('PizzaCorp')).toBeVisible();
+//   await expect(page.getByText('Lehi')).toBeVisible();
+//   await expect(page.getByText('Spanish Fork')).toBeVisible();
+//   await expect(page.getByRole('button', { name: 'Add Franchise' })).toBeVisible();
+// });
