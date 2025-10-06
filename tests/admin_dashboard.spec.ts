@@ -11,7 +11,7 @@ async function basicInit(page: Page) {
       name: 'pizza franchisee', 
       email: 'f@jwt.com', 
       password: 'franchisee', 
-      roles: [{ role: Role.Franchisee }]
+      roles: [{ role: Role.Franchisee, objectId: '1' }]
     } };
 
   // Authorize login for the given user
@@ -133,3 +133,19 @@ test('test close franchise', async ({ page}) => {
   await page.getByRole('row', { name: 'Lehi ₿ Close' }).getByRole('button').click();
   await expect(page.getByText('Sorry to see you go')).toBeVisible();
 });
+
+// test('test franchise dashboard', async ({ page}) => {
+//   await basicInit(page);
+//   await page.goto('http://localhost:5173/');
+//   await page.getByRole('link', { name: 'Login' }).click();
+//   await page.getByRole('textbox', { name: 'Email address' }).click();
+//   await page.getByRole('textbox', { name: 'Email address' }).fill('f@jwt.com');
+//   await page.getByRole('textbox', { name: 'Password' }).click();
+//   await page.getByRole('textbox', { name: 'Password' }).fill('franchisee');
+//   await page.getByRole('button', { name: 'Login' }).click();
+//   await page.getByLabel('Global').getByRole('link', { name: 'Franchise' }).click();
+//   await expect(page.getByText("Mama Ricci's kitchen")).toBeVisible();
+//   await expect(page.getByText('Franchises')).toBeVisible();
+//   await page.getByRole('row', { name: 'Lehi ₿ Close' }).getByRole('button').click();
+//   await expect(page.getByText('Sorry to see you go')).toBeVisible();
+// });
