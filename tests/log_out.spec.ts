@@ -3,7 +3,7 @@ import { Page } from '@playwright/test';
 import { User, Role } from '../src/service/pizzaService'; 
 async function basicInit(page: Page) {
   let loggedInUser: User | undefined;
-  const validUsers: Record<string, User> = { 'd@jwt.com': { id: '3', name: 'Kai Chen', email: 'd@jwt.com', password: 'a', roles: [{ role: Role.D }] } };
+  const validUsers: Record<string, User> = { 'd@jwt.com': { id: '3', name: 'Kai Chen', email: 'd@jwt.com', password: 'a', roles: [{ role: Role.Diner }] } };
 
   // Route for PUT (Login)
   await page.route('*/**/api/auth', async (route) => {
