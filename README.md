@@ -2,7 +2,6 @@
 
 ![Coverage badge](https://pizza-factory.cs329.click/api/badge/m10iguel/jwtpizzacoverage)
 
-
 [![CI Pipeline](https://github.com/10iguel/jwt-pizza/actions/workflows/ci.yml/badge.svg)](https://github.com/10iguel/jwt-pizza/actions/workflows/ci.yml)
 
 
