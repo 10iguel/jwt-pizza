@@ -41,12 +41,6 @@ async function basicInit(page: Page) {
       user: sanitizedUser,
       token: 'abcdef',
     };
-
-    // loggedInUser = validUsers[loginReq.email];
-    // const loginRes = {
-    //   user: loggedInUser,
-    //   token: 'abcdef',
-    // };
     expect(route.request().method()).toBe('PUT');
     await route.fulfill({ json: loginRes });
   });
@@ -88,23 +82,6 @@ async function basicInit(page: Page) {
         }
         await route.fulfill({ json: franchises });
     });
-
-    // Mock for specific franchise (GET /api/franchise/ID)
-    // await page.route(/\/api\/franchise\/\d+(\?.*)?$/, async (route) => {
-    //     expect(route.request().method()).toBe('GET');
-    //     const franchiseId = route.request().url().match(/\/api\/franchise\/(\d+)/)?.[1]; 
-    //     let franchise = null;
-    //     // Compare the string ID from the URL with the mock ID
-    //     if (franchiseId === '1' && loggedInUser?.id === '4') { 
-    //         franchise = {
-    //             id: 1,
-    //             name: 'pizzaPocket',
-    //             admins: [{ id: 4, name: 'pizza franchisee', email: 'f@jwt.com' }],
-    //             stores: [{ id: 4, name: 'SLC', totalRevenue: 0.0816 }]
-    //         };
-    //     }
-    //     await route.fulfill({ json: franchise || [] });
-    // });
 
     await page.route(/\/api\/franchise\/\d+(\?.*)?$/, async (route) => {
     expect(route.request().method()).toBe('GET');

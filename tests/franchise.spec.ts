@@ -88,11 +88,9 @@ import { test, expect } from 'playwright-test-coverage';
         }
       ];
     }
-    // For other users like id '3', return empty array
     await route.fulfill({ json: franchises });
   });
 
-  // Mock for specific franchise if needed (e.g., /api/franchise/4)
   await page.route(/\/api\/franchise\/\d+(\?.*)?$/, async (route) => {
     expect(route.request().method()).toBe('GET');
     const franchiseId = route.request().url().match(/\/api\/franchise\/(\d+)/)?.[1];

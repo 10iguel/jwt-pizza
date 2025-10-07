@@ -12,10 +12,8 @@ async function basicInit(page: Page) {
     const reqBody = route.request().postDataJSON();
 
     if (method === 'POST') {
-      // Registration: create new user for any email not in validUsers
       const email = reqBody.email;
       if (validUsers[email]) {
-        // If email exists, treat as unauthorized for registration
         await route.fulfill({ status: 401, json: { error: 'User already exists' } });
         return;
       }
@@ -118,24 +116,18 @@ async function basicInit(page: Page) {
 
 test('test successful registration', async ({ page }) => {
   await basicInit(page);
-  // Already navigated in basicInit, so go directly to register
   await page.getByRole('link', { name: 'Register' }).click();
 
-  // Fill name
   await expect(page.getByPlaceholder('Full name')).toBeVisible();
   await page.getByPlaceholder('Full name').fill('guest');
 
-  // Fill email
   await expect(page.getByPlaceholder('Email address')).toBeVisible();
   await page.getByPlaceholder('Email address').fill('guest@gmail.com');
 
-  // Fill password
   await expect(page.getByPlaceholder('Password')).toBeVisible();
   await page.getByPlaceholder('Password').fill('1234567');
 
-  // Submit form
   await page.getByRole('button', { name: 'Register' }).click();
 
-  // After successful registration, should navigate back to home and show welcome text
   await expect(page.getByText("brings joy to people")).toBeVisible();
 });

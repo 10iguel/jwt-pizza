@@ -2,9 +2,6 @@ import { test, expect } from 'playwright-test-coverage';
 import { Page } from '@playwright/test';
 import { OrderHistory, Role, User } from '../src/service/pizzaService';
 
-// Add this route inside the basicInit function, after the existing order route:
-
-
 async function basicInit(page: Page) {
   let loggedInUser: User | undefined;
   const validUsers: Record<string, User> = { 'd@jwt.com': { id: '3', name: 'Kai Chen', email: 'd@jwt.com', password: 'a', roles: [{ role: Role.Diner }] } };
