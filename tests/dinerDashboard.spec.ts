@@ -116,7 +116,7 @@ test('diner dashboard', async ({ page }) => {
   await page.getByRole('button', { name: 'Login' }).click();
   await page.goto('http://localhost:5173/diner-dashboard');
   await expect(page.getByRole('heading', { name: 'Your pizza kitchen' })).toBeVisible();
-  await expect(page.getByText('name:')).toBeVisible();
-  await expect(page.getByText('email:')).toBeVisible();
-  await expect(page.getByText('role:')).toBeVisible();
+  await expect(page.getByText('name:').first()).toBeVisible();
+  await expect(page.getByText('email:').first()).toBeVisible();
+  await expect(page.getByText('role:').first()).toBeVisible();
 });
