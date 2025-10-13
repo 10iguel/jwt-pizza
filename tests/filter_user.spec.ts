@@ -109,7 +109,8 @@ test('filter users', async ({ page }) => {
     if (method === 'GET') {
       const url = new URL(route.request().url());
       const filter = url.searchParams.get('name')?.replace(/\*/g, '') || '';
-      const filtered = users.filter(u => u.name.includes(filter));
+      // @ts-ignore
+        const filtered = users.filter(u => u.name.includes(filter));
       await route.fulfill({ json: { users: filtered, more: false } });
     }
   });
